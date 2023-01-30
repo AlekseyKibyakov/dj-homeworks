@@ -7,14 +7,20 @@
         <div class="header">
             <h1><a href="/books">Каталог</a></h1>
         </div>
-        <div class="row">
-            {% for book in books %}
+        {% for book in books %}
+        <div class="row"> 
             <div class="book col-md-4">
                 <h2><a href="/books/{{ book.pub_date }}">{{ book.name }}</a></h2>
                 <p>Автор: {{ book.author }}</p>
                 <p>Дата публикации: {{ book.pub_date }}</p>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
+        {% if prev_date %}
+        <h5><a href="/books/{{ prev_date }}"> &#8592;{{ prev_date }}</a></h5>
+        {% endif %}
+        {% if next_date %}
+        <h5><a href="/books/{{ next_date }}">{{ next_date }} &#8594;</a></h5>
+        {% endif %}   
     </div>
 {% endblock %}
