@@ -37,8 +37,5 @@ class Scope(models.Model):
     class Meta:
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
-        
-    def __str__(self):
-        return self.title
     
 

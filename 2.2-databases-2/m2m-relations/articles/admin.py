@@ -6,9 +6,12 @@ from .models import Article, Scope, Tag
 
 class ScopeInlineFormset(BaseInlineFormSet):
     def clean(self):
+        counter = 0
         for form in self.forms:
-            form.cleaned_data
-            raise ValidationError('Основным может быть только один раздел!')
+            if form.cleaned_data.get('is_main'):
+                counter += 1
+        if counter != 1:
+            raise ValidationError('Основным может быть только один раздел!')    
         return super().clean() 
 
 
