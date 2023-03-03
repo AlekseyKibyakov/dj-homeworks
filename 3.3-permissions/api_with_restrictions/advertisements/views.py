@@ -15,7 +15,8 @@ class AdvertisementViewSet(ModelViewSet):
     queryset = Advertisement.objects.all()
     permission_classes = []
     serializer_class = AdvertisementSerializer
-    filter_backends = [F]
+    filterset_class = [F]
+    filterset_fields = ['created_at',]
     
     
     def get_permissions(self):
