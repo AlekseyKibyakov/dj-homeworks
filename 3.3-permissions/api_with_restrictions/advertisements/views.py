@@ -1,9 +1,18 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-
-from advertisements.models import F, Advertisement
+from django_filters import rest_framework as filters
+from advertisements.models import Advertisement
 from advertisements.permissions import IsOwnerOrReadOnly
 from advertisements.serializers import AdvertisementSerializer
+
+
+class F(filters.FilterSet):
+    created_at = filters.DateFromToRangeFilter()
+    
+    class Meta:
+        model = Advertisement
+        fields = ['created_at', 'creator']
+
 
 
 class AdvertisementViewSet(ModelViewSet):
@@ -14,7 +23,8 @@ class AdvertisementViewSet(ModelViewSet):
 
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
-    filterset_class = [F]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = F
     
     
     def get_permissions(self):
